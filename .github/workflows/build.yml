@@ -6,26 +6,17 @@ jobs:
   steps:
    - name: print env details
      run: env | sort
- Checkout:
+ Build:
   runs-on: ubuntu-22.04
-  defaults:
-    run:
-      working-directory: ./server/  
   needs: print-out
   steps:
    - name: Checkout
-     uses: actions/checkout@v4
- Build:
-  runs-on: ubuntu-22.04
-  defaults:
-    run:
-      working-directory: ./server/  
-  needs: Checkout
-  steps: 
+     uses: actions/checkout@v4    
    - name: Setup node
      uses: actions/setup-node@v3
      with:
       node-version: 16.13.x
+      cache: npm
    - name: Install
-     run: npm i
+     run: npm ci
     
