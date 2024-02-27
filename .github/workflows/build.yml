@@ -1,0 +1,26 @@
+name: Build
+on: workflow_dispatch
+jobs:
+ print-out:
+  runs-on: ubuntu-22.04
+  steps:
+   - name: print env details
+     run: env | sort
+ Checkout:
+  runs-on: ubuntu-22.04
+  needs: print-out
+  steps:
+   - name: Checkout
+     uses: actions/checkout@v4
+ Build:
+  runs-on: ubuntu-22.04
+  needs: Checkout
+  steps: 
+   - name: Setup node
+     uses: actions/setup-node@v3
+     with:
+      node-version: 16.13.x
+      cache: npm
+   - name: Install
+     run: npm ci
+    
